@@ -7,7 +7,7 @@ function s = drawstates(y)
 
 %[prob			mean			variance]
 pars10 = [ ...
-
+Hi and I want to own this
 0.04775    1.34744   0.17788;
 0.13057    0.73504   0.26768;
 0.20674    0.02266   0.40611;
