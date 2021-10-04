@@ -3,20 +3,15 @@ function [aols,vbar,a0,ssig1,a02mo] = ts_prior(rawdat,tau,p,plag)
 yt = rawdat(plag+1:tau+plag,:)';
 
 %m is the number of elements in the state vector
+ylag1 = mlag2(rawdat,plag);
+ylag1(1:2,:)=[];
 m = p + plag*(p^2);
-Zt=[];
-for i = plag+1:tau+plag
-    ztemp = eye(p);
-    for j = 1:plag;
-        xlag = rawdat(i-j,1:p);
-        xtemp = zeros(p,p*p);
-        for jj = 1:p;
-            xtemp(jj,(jj-1)*p+1:jj*p) = xlag;
-        end
-        ztemp = [ztemp   xtemp];
-    end
-    Zt = [Zt ; ztemp];
+Zt = zeros((tau)*p,m);
+for i = 1:tau
+ztemp=kron(eye(p),[1 ylag1(i,:)]);
+Zt((i-1)*p+1:i*p,:) = ztemp;
 end
+
 
 vbar = zeros(m,m);
 xhy = zeros(m,1);
