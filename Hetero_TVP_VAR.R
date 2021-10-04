@@ -22,18 +22,14 @@ for(i in p:1){
 ylag = ylag[p+tau+1:t, 1:(M*p)]; rownames(ylag)=NULL
 
 
-K = M + p*(M**2)
+K = M + p*(M*2)
 Z = matrix(0, nrow=(t-tau-p)*M, ncol=K)
 
-for(i in 1:(t-tau-p)){
-  ztemp = diag(M)
-  for(j in 1:p){
-    xtemp = as.matrix(ylag[i, ((j-1)*M+1):(j*M)])
-    xtemp = kronecker(diag(M), xtemp)
-    ztemp = cbind(ztemp, xtemp)
-  }
-  Z[((i-1)*M+1):(i*M), ] = ztemp
-}
+Z = zeros((t-tau-p)*M,K);
+for i=1:t-tau-p
+ztemp=kron(eye(M),[1 ylag(i,:)]);
+Z((i-1)*M+1:i*M,:) = ztemp;
+end
 
 y = Y[(tau+p+1):t,]
 yearlab = yearlab[(tau+p+1):t,]
