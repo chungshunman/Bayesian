@@ -5,7 +5,8 @@
             for j = 1:p-1
                 biga(j*M+1:M*(j+1),M*(j-1)+1:j*M) = eye(M);
             end
-Btdraw([1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21], :)=Btdraw([1 8 15 2 3 4 9 10 11 16 17 18 5 6 7 12 13 14 19 20 21],:);
+            
+            Btdraw([1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21], :)=Btdraw([1 8 15 2 3 4 9 10 11 16 17 18 5 6 7 12 13 14 19 20 21],:); %change the order of the B(t) vector back to the order Koop had it so that the code of the IRFs does not have to be changed.
                 for i = 1:t %Get impulses recurssively for each time period               
                 bbtemp = Btdraw(M+1:K,i);  % get the draw of B(t) at time i=1,...,T  (exclude intercept)
                 splace = 0;
